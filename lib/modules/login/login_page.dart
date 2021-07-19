@@ -5,6 +5,8 @@ import 'package:payflow/shared/themes/app_images.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
 import 'package:payflow/shared/widgets/social_login/social_login_button.dart';
 
+import 'login_controller.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -13,6 +15,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final controller = loginController();
   @override
   Widget build(BuildContext context) {
     // Obtem o tamanho da tela do dispositivo
@@ -62,18 +65,8 @@ class _LoginPageState extends State<LoginPage> {
                     padding:
                         const EdgeInsets.only(left: 40, right: 40, top: 40),
                     child: SocialLoginButton(
-                      ontap: () async {
-                        GoogleSignIn _googleSignIn = GoogleSignIn(
-                          scopes: [
-                            'email',
-                          ],
-                        );
-                        try {
-                          final response = await _googleSignIn.signIn();
-                          print(response);
-                        } catch (error) {
-                          print(error);
-                        }
+                      ontap: () {
+                        controller.googleSignIn(context);
                       },
                     ),
                   ),
